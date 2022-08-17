@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+require('@electron/remote/main').initialize();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
@@ -18,6 +19,7 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     },
   });
+  require("@electron/remote/main").enable(mainWindow.webContents);
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
