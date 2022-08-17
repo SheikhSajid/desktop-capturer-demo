@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, desktopCapturer, ipcMain } = require('electron');
 const path = require('path');
 require('@electron/remote/main').initialize();
 
@@ -27,6 +27,11 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
+
+ipcMain.handle(
+  'DESKTOP_CAPTURER_GET_SOURCES',
+  (_, opts) => desktopCapturer.getSources(opts)
+);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

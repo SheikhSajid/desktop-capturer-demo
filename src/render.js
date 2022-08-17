@@ -1,8 +1,12 @@
 const videoSelectBtn = document.getElementById('videoSelectBtn');
 videoSelectBtn.onclick = getVideoSources;
 
-const { desktopCapturer } = require('electron');
+const { ipcRenderer } = require('electron');
 const { Menu } = require('@electron/remote');
+
+const desktopCapturer = {
+  getSources: (opts) => ipcRenderer.invoke('DESKTOP_CAPTURER_GET_SOURCES', opts)
+};
 
 // Get the available video sources
 async function getVideoSources() {
